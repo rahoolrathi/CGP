@@ -47,7 +47,7 @@ jobs:
       - name: Check migrations match the model
         run: |
           dotnet tool restore
-          dotnet ef migrations has-pending-model-changes --project src/CgbSteps.Infrastructure --no-build --configuration Release
+          dotnet ef migrations has-pending-model-changes --project src/CgbSteps.Api --no-build --configuration Release
 
   secrets:
     name: Secret scan

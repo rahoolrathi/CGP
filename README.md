@@ -11,7 +11,7 @@ apps/
 packages/
   ui-tokens/     Brand colours, spacing and typography
   i18n/          English and Arabic strings
-backend/         ASP.NET Core API (Domain, Application, Infrastructure, Api)
+backend/         ASP.NET Core API (controllers, services, repositories)
 docs/            ADRs, threat model, runbooks
 ```
 

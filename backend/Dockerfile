@@ -1,9 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 COPY global.json Directory.Build.props Directory.Packages.props CgbSteps.slnx ./
-COPY src/CgbSteps.Domain/CgbSteps.Domain.csproj src/CgbSteps.Domain/
-COPY src/CgbSteps.Application/CgbSteps.Application.csproj src/CgbSteps.Application/
-COPY src/CgbSteps.Infrastructure/CgbSteps.Infrastructure.csproj src/CgbSteps.Infrastructure/
 COPY src/CgbSteps.Api/CgbSteps.Api.csproj src/CgbSteps.Api/
 RUN dotnet restore src/CgbSteps.Api/CgbSteps.Api.csproj
 COPY src/ src/

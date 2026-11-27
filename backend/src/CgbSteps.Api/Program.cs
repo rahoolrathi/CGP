@@ -1,14 +1,23 @@
 using System.Globalization;
-using CgbSteps.Api;
-using CgbSteps.Infrastructure.Persistence;
+using CgbSteps.Api.Data;
+using CgbSteps.Api.Extensions;
 using Serilog;
 
-Log.Logger = new LoggerConfiguration().WriteTo.Console(formatProvider: CultureInfo.InvariantCulture).CreateBootstrapLogger();
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
+    .CreateBootstrapLogger();
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
-    builder.AddApi();
+
+    builder.AddLogging();
+    builder.Services
+        .AddDatabase(builder.Configuration)
+        .AddRepositories()
+        .AddAppServices()
+        .AddApiInfrastructure(builder.Configuration);
+
     var app = builder.Build();
 
     if (args.Contains("migrate"))
@@ -17,7 +26,7 @@ try
         return 0;
     }
 
-    app.UseApi();
+    app.UseApiPipeline();
     await app.RunAsync();
     return 0;
 }

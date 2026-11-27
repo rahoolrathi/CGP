@@ -47,5 +47,5 @@ EAS creates and stores the release keystore on first build. Download a backup wi
 ```sh
 cd backend
 ConnectionStrings__Migrations="<direct connection string>" \
-  dotnet ef database update <PreviousMigrationName> --project src/CgbSteps.Infrastructure
+  dotnet ef database update <PreviousMigrationName> --project src/CgbSteps.Api
 ```

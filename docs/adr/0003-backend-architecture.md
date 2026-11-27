@@ -1,25 +1,40 @@
-# 3. Backend architecture: Clean Architecture with Minimal APIs
+# 3. Backend architecture: layered controllers, services and repositories
 
-- Status: Accepted
+- Status: Accepted (revised 2026-11-27)
 - Date: 2026-11-27
 
 ## Context
 
-The backend must stay easy to read and test as features are added, without heavy framework ceremony.
+The backend must be easy for the team to navigate and test as features grow, without heavy framework ceremony. The team prefers a familiar layered layout over separate Clean Architecture projects.
 
 ## Decision
 
-- Four projects with one-way dependencies: `Api → Infrastructure → Application → Domain`.
-  - **Domain**: entities and rules with no framework dependencies.
-  - **Application**: use cases as small handler classes (one per command or query), plus the interfaces they need.
-  - **Infrastructure**: EF Core, Postgres and other external services.
-  - **Api**: Minimal API endpoints grouped per feature under `/api/v1`, plus HTTP concerns (errors, auth, CORS, rate limits).
-- Handlers are injected directly into endpoints. No mediator library.
+One API project, `CgbSteps.Api`, organised by layer:
+
+```
+Controllers/    HTTP only: routing, status codes, auth attributes. Call services.
+Services/       Business logic. Depend on repository interfaces, never on EF Core directly.
+Repositories/   Data access with EF Core.
+Interfaces/     Contracts for services and repositories (registered in DI).
+Models/
+  Entities/     Database entities with their own invariants.
+  Dtos/         Request and response shapes.
+Data/           AppDbContext, entity configurations, migrator.
+Migrations/     EF Core migrations.
+Helpers/        Focused helpers (Qatar day maths, problem details).
+Utils/          Constants and small generic utilities.
+Middleware/     Security headers, global exception handler.
+Extensions/     DI registration and the HTTP pipeline, keeping Program.cs short.
+```
+
+Rules:
+
+- Dependencies flow one way: `Controllers → Services → Repositories → Data`, each through an interface.
+- Controllers live under `/api/v1`. Every action requires authentication unless marked `[AllowAnonymous]`.
 - Errors use RFC 7807 Problem Details with a stable `code` the clients translate.
-- Every endpoint requires authentication unless it explicitly calls `AllowAnonymous()`.
-- One test project covers domain, application and API behaviour.
+- One test project (`tests/CgbSteps.Tests`) mirrors these folders; services are tested with fake repositories.
 
 ## Consequences
 
-- Fewer packages and less indirection than a mediator pipeline.
-- Cross-cutting behaviour (validation, logging) is added with endpoint filters when needed.
+- Familiar to most .NET developers; new features follow the same five steps (entity, repository, service, DTO, controller).
+- Layering is enforced by convention and review rather than project references. If the codebase grows a lot, the folders can be split into projects later without changing the code inside them.
