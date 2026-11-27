@@ -2,6 +2,8 @@ using System.Threading.RateLimiting;
 using CgbSteps.Api.Data;
 using CgbSteps.Api.Helpers;
 using CgbSteps.Api.Middleware;
+using CgbSteps.Api.Repositories;
+using CgbSteps.Api.Repositories.Interfaces;
 using CgbSteps.Api.Services;
 using CgbSteps.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -26,6 +28,7 @@ internal static class ServiceCollectionExtensions
         services.AddDbContext<AppDbContext>(options => AppDbContext.Configure(options, connectionString));
         services.AddHealthChecks().AddDbContextCheck<AppDbContext>("database", tags: [AppConstants.ReadyHealthTag]);
         services.AddTransient<DatabaseMigrator>();
+        services.AddScoped<DevDataSeeder>();
 
         return services;
     }
@@ -34,6 +37,16 @@ internal static class ServiceCollectionExtensions
     {
         services.AddSingleton(TimeProvider.System);
         services.AddScoped<ISystemService, SystemService>();
+        services.AddScoped<IDepartmentService, DepartmentService>();
+        services.AddScoped<IEmployeeService, EmployeeService>();
+        services.AddScoped<IEmployeeImportService, EmployeeImportService>();
+        return services;
+    }
+
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         return services;
     }
 

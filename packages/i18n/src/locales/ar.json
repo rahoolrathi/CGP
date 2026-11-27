@@ -6,7 +6,11 @@
     "loading": "جارٍ التحميل…",
     "retry": "حاول مرة أخرى",
     "language": "اللغة",
-    "theme": "المظهر"
+    "theme": "المظهر",
+    "delete": "حذف",
+    "previous": "السابق",
+    "next": "التالي",
+    "saving": "جارٍ الحفظ…"
   },
   "settings": {
     "title": "الإعدادات",
@@ -43,9 +47,70 @@
       "label": "حالة الخادم",
       "healthy": "يعمل",
       "unavailable": "غير متاح"
+    },
+    "nav": {
+      "label": "القائمة الرئيسية",
+      "dashboard": "لوحة التحكم",
+      "employees": "الموظفون",
+      "departments": "الإدارات"
+    },
+    "departments": {
+      "title": "الإدارات",
+      "subtitle": "إضافة الإدارات وحذفها.",
+      "name": "اسم الإدارة",
+      "employees": "الموظفون",
+      "created": "تاريخ الإضافة",
+      "add": "إضافة إدارة",
+      "empty": "لا توجد إدارات بعد.",
+      "confirmDelete": "حذف إدارة «{{name}}»؟"
+    },
+    "employees": {
+      "title": "الموظفون",
+      "subtitle": "يمكن فقط للموظفين في هذه القائمة إنشاء حساب.",
+      "search": "ابحث بالاسم أو الرقم الوظيفي أو البريد",
+      "allDepartments": "كل الإدارات",
+      "employeeId": "الرقم الوظيفي",
+      "fullName": "الاسم الكامل",
+      "workEmail": "البريد الإلكتروني للعمل",
+      "department": "الإدارة",
+      "chooseDepartment": "اختر إدارة",
+      "add": "إضافة موظف",
+      "empty": "لا يوجد موظفون.",
+      "confirmDelete": "حذف {{name}} ({{id}})؟",
+      "page": "صفحة {{page}} من {{pages}}",
+      "total": "{{count}} موظف",
+      "import": {
+        "title": "استيراد قائمة الموظفين (CSV)",
+        "hint": "العناوين: employeeId,fullName,workEmail,department. يتم تخطي الموظفين الموجودين وإنشاء الإدارات الجديدة.",
+        "choose": "ملف CSV",
+        "upload": "رفع",
+        "result": "تمت إضافة {{added}}، وتخطي {{skipped}}، وإدارات جديدة {{departments}}.",
+        "rowError": "السطر {{row}}: {{message}}"
+      }
     }
   },
   "errors": {
-    "generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+    "generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "codes": {
+      "bad_request": "يرجى التحقق من الحقول والمحاولة مرة أخرى.",
+      "not_found": "لم يعد موجودًا.",
+      "conflict": "موجود بالفعل.",
+      "department_not_found": "هذه الإدارة لم تعد موجودة.",
+      "department_exists": "توجد إدارة بهذا الاسم بالفعل.",
+      "department_has_employees": "انقل موظفي هذه الإدارة أو احذفهم قبل حذفها.",
+      "employee_not_found": "هذا الموظف لم يعد موجودًا.",
+      "employee_id_exists": "يوجد موظف بهذا الرقم الوظيفي بالفعل.",
+      "work_email_exists": "يوجد موظف بهذا البريد الإلكتروني بالفعل.",
+      "file_missing": "اختر ملف CSV أولًا.",
+      "file_too_large": "الملف كبير جدًا (الحد الأقصى 2 ميغابايت).",
+      "csv_header_invalid": "يجب أن تكون العناوين employeeId,fullName,workEmail,department.",
+      "csv_too_many_rows": "عدد الأسطر كبير جدًا (الحد الأقصى 10,000).",
+      "invalid_employee_id": "رقم وظيفي غير صالح",
+      "invalid_full_name": "اسم غير صالح",
+      "invalid_work_email": "بريد إلكتروني غير صالح",
+      "invalid_department": "إدارة غير صالحة",
+      "duplicate_in_file": "مكرر في الملف",
+      "rate_limited": "طلبات كثيرة جدًا. انتظر دقيقة ثم حاول مرة أخرى."
+    }
   }
 }

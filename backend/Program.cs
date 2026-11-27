@@ -17,6 +17,7 @@ try
     builder.AddLogging();
     builder.Services
         .AddDatabase(builder.Configuration)
+        .AddRepositories()
         .AddAppServices()
         .AddApiInfrastructure(builder.Configuration);
 
@@ -25,6 +26,13 @@ try
     if (args.Contains("migrate"))
     {
         await app.Services.GetRequiredService<DatabaseMigrator>().MigrateAsync(CancellationToken.None);
+        return 0;
+    }
+
+    if (args.Contains("seed"))
+    {
+        await using var scope = app.Services.CreateAsyncScope();
+        await scope.ServiceProvider.GetRequiredService<DevDataSeeder>().SeedAsync(CancellationToken.None);
         return 0;
     }
 

@@ -48,6 +48,7 @@ pnpm install
 cd backend
 dotnet tool restore
 dotnet run -- migrate
+dotnet run -- seed   # optional: fake departments and employees (Development only)
 dotnet run
 
 # Admin web: http://localhost:5173 (proxies /api to localhost:5080)
@@ -56,6 +57,30 @@ pnpm --filter @cgb/admin-web dev
 # Mobile (dev build)
 cd apps/mobile && npx expo run:android
 ```
+
+## API
+
+Open http://localhost:5080/scalar while the backend runs in Development to try every endpoint.
+
+| Method | Path                                | What it does                                                  |
+| ------ | ----------------------------------- | ------------------------------------------------------------- |
+| GET    | `/api/v1/departments`               | List departments with employee counts                         |
+| POST   | `/api/v1/departments`               | Add a department (`{ "name": "Finance" }`)                    |
+| DELETE | `/api/v1/departments/{id}`          | Delete a department that has no employees                     |
+| GET    | `/api/v1/employees`                 | List employees (`search`, `departmentId`, `page`, `pageSize`) |
+| POST   | `/api/v1/employees`                 | Add an employee                                               |
+| PATCH  | `/api/v1/employees/{id}/department` | Move an employee to another department                        |
+| DELETE | `/api/v1/employees/{id}`            | Delete an employee                                            |
+| POST   | `/api/v1/employees/import`          | Import a CSV roster (form field `file`)                       |
+
+The roster CSV needs this header (max 2 MB, 10,000 rows). New employees are added, existing ones are skipped, and missing departments are created:
+
+```csv
+employeeId,fullName,workEmail,department
+CGB1001,Aisha Al-Kuwari,aisha@example.com,Finance
+```
+
+Errors come back as problem responses with a `code`, for example `department_has_employees` or `employee_id_exists`. These endpoints are open for now; admin login comes next.
 
 ## Checks
 

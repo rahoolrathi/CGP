@@ -18,6 +18,8 @@ internal static class ProblemDetailsHelper
         StatusCodes.Status403Forbidden => AppConstants.ErrorCodes.Forbidden,
         StatusCodes.Status404NotFound => AppConstants.ErrorCodes.NotFound,
         StatusCodes.Status405MethodNotAllowed => AppConstants.ErrorCodes.MethodNotAllowed,
+        StatusCodes.Status409Conflict => AppConstants.ErrorCodes.Conflict,
+        StatusCodes.Status413PayloadTooLarge => AppConstants.ErrorCodes.FileTooLarge,
         StatusCodes.Status429TooManyRequests => AppConstants.ErrorCodes.RateLimited,
         _ => AppConstants.ErrorCodes.ServerError,
     };

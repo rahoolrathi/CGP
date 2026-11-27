@@ -1,4 +1,8 @@
+using CgbSteps.Api.Exceptions;
+using CgbSteps.Api.Helpers;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace CgbSteps.Api.Middleware;
 
@@ -16,14 +20,25 @@ internal sealed partial class GlobalExceptionHandler(
             return true;
         }
 
-        LogUnhandled(logger, exception, httpContext.Request.Method, httpContext.Request.Path);
+        var (status, code) = exception switch
+        {
+            AppException app => (app.StatusCode, app.Code),
+            DbUpdateException { InnerException: PostgresException { SqlState: PostgresErrorCodes.UniqueViolation } } =>
+                (StatusCodes.Status409Conflict, AppConstants.ErrorCodes.Conflict),
+            _ => (StatusCodes.Status500InternalServerError, AppConstants.ErrorCodes.ServerError),
+        };
 
-        httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        if (status == StatusCodes.Status500InternalServerError)
+        {
+            LogUnhandled(logger, exception, httpContext.Request.Method, httpContext.Request.Path);
+        }
+
+        httpContext.Response.StatusCode = status;
         return await problemDetailsService.TryWriteAsync(new ProblemDetailsContext
         {
             HttpContext = httpContext,
             Exception = exception,
-            ProblemDetails = { Status = StatusCodes.Status500InternalServerError },
+            ProblemDetails = { Status = status, Extensions = { ["code"] = code } },
         });
     }
 

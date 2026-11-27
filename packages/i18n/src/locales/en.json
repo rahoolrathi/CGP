@@ -6,7 +6,11 @@
     "loading": "Loading…",
     "retry": "Try again",
     "language": "Language",
-    "theme": "Theme"
+    "theme": "Theme",
+    "delete": "Delete",
+    "previous": "Previous",
+    "next": "Next",
+    "saving": "Saving…"
   },
   "settings": {
     "title": "Settings",
@@ -43,9 +47,70 @@
       "label": "API status",
       "healthy": "Healthy",
       "unavailable": "Unavailable"
+    },
+    "nav": {
+      "label": "Main menu",
+      "dashboard": "Dashboard",
+      "employees": "Employees",
+      "departments": "Departments"
+    },
+    "departments": {
+      "title": "Departments",
+      "subtitle": "Add and remove departments.",
+      "name": "Department name",
+      "employees": "Employees",
+      "created": "Added",
+      "add": "Add department",
+      "empty": "No departments yet.",
+      "confirmDelete": "Delete the department “{{name}}”?"
+    },
+    "employees": {
+      "title": "Employees",
+      "subtitle": "Only employees on this list can sign up.",
+      "search": "Search by name, ID or email",
+      "allDepartments": "All departments",
+      "employeeId": "Employee ID",
+      "fullName": "Full name",
+      "workEmail": "Work email",
+      "department": "Department",
+      "chooseDepartment": "Choose a department",
+      "add": "Add employee",
+      "empty": "No employees found.",
+      "confirmDelete": "Delete {{name}} ({{id}})?",
+      "page": "Page {{page}} of {{pages}}",
+      "total": "{{count}} employees",
+      "import": {
+        "title": "Import roster (CSV)",
+        "hint": "Header: employeeId,fullName,workEmail,department. Existing employees are skipped and new departments are created.",
+        "choose": "CSV file",
+        "upload": "Upload",
+        "result": "Added {{added}}, skipped {{skipped}}, new departments {{departments}}.",
+        "rowError": "Row {{row}}: {{message}}"
+      }
     }
   },
   "errors": {
-    "generic": "Something went wrong. Please try again."
+    "generic": "Something went wrong. Please try again.",
+    "codes": {
+      "bad_request": "Please check the fields and try again.",
+      "not_found": "It no longer exists.",
+      "conflict": "This already exists.",
+      "department_not_found": "That department no longer exists.",
+      "department_exists": "A department with this name already exists.",
+      "department_has_employees": "Move or delete its employees before deleting this department.",
+      "employee_not_found": "That employee no longer exists.",
+      "employee_id_exists": "An employee with this ID already exists.",
+      "work_email_exists": "An employee with this email already exists.",
+      "file_missing": "Choose a CSV file first.",
+      "file_too_large": "The file is too large (max 2 MB).",
+      "csv_header_invalid": "The CSV header must be employeeId,fullName,workEmail,department.",
+      "csv_too_many_rows": "The file has too many rows (max 10,000).",
+      "invalid_employee_id": "Invalid employee ID",
+      "invalid_full_name": "Invalid name",
+      "invalid_work_email": "Invalid email",
+      "invalid_department": "Invalid department",
+      "duplicate_in_file": "Repeated in the file",
+      "rate_limited": "Too many requests. Wait a minute and try again."
+    }
   }
 }

@@ -3,8 +3,10 @@ import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { changeLanguage, currentLanguage } from '../lib/i18n';
 import { themePreferences, useTheme, type ThemePreference } from '../theme/ThemeProvider';
+import type { Route } from './routes';
+import { Sidebar } from './Sidebar';
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({ route, children }: { route: Route; children: ReactNode }) {
   const { t, i18n } = useTranslation();
   const { preference, setPreference } = useTheme();
   const language = currentLanguage(i18n.language);
@@ -42,7 +44,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           </label>
         </div>
       </header>
-      <main className="shell__main">{children}</main>
+      <div className="shell__body">
+        <Sidebar current={route} />
+        <main className="shell__main">{children}</main>
+      </div>
     </div>
   );
 }
