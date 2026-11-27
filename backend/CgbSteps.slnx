@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CgbSteps.Domain/CgbSteps.Domain.csproj" />
+    <Project Path="src/CgbSteps.Application/CgbSteps.Application.csproj" />
+    <Project Path="src/CgbSteps.Infrastructure/CgbSteps.Infrastructure.csproj" />
+    <Project Path="src/CgbSteps.Api/CgbSteps.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CgbSteps.Tests/CgbSteps.Tests.csproj" />
+  </Folder>
+</Solution>
