@@ -1,0 +1,4 @@
+# EF Core generates these files; skip code analysis for them.
+[*.cs]
+generated_code = true
+dotnet_analyzer_diagnostic.severity = none

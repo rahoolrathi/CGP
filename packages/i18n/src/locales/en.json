@@ -36,7 +36,36 @@
     },
     "stepsToday": "{{count}} steps today",
     "goal": "Goal {{goal}}",
-    "comingSoon": "Step tracking arrives in the next update."
+    "goalReached": "Goal reached!",
+    "lastSevenDays": "Last 7 days",
+    "stats": {
+      "km": "km",
+      "activeMinutes": "active min",
+      "calories": "kcal"
+    },
+    "sync": {
+      "idle": "",
+      "syncing": "Syncing…",
+      "synced": "Up to date",
+      "offline": "Saved on this phone. Will sync when online."
+    },
+    "health": {
+      "unavailable": {
+        "title": "Health Connect is not available",
+        "body": "Install Health Connect from the Play Store to count your steps.",
+        "action": "Open Health Connect"
+      },
+      "needsUpdate": {
+        "title": "Update Health Connect",
+        "body": "Your Health Connect app needs an update before we can read steps.",
+        "action": "Open Health Connect"
+      },
+      "needsPermission": {
+        "title": "Connect your steps",
+        "body": "Allow CGB Steps to read steps, distance, exercise and calories from Health Connect.",
+        "action": "Connect Health Connect"
+      }
+    }
   },
   "admin": {
     "dashboard": {
@@ -112,5 +141,12 @@
       "duplicate_in_file": "Repeated in the file",
       "rate_limited": "Too many requests. Wait a minute and try again."
     }
+  },
+  "identity": {
+    "title": "Who are you?",
+    "subtitle": "Pick your name to start. Sign-in comes later.",
+    "search": "Search by name or employee ID",
+    "loadError": "Couldn't load the employee list. Check your connection.",
+    "switch": "Switch employee"
   }
 }

@@ -36,7 +36,36 @@
     },
     "stepsToday": "{{count}} خطوة اليوم",
     "goal": "الهدف {{goal}}",
-    "comingSoon": "سيتوفر تتبع الخطوات في التحديث القادم."
+    "goalReached": "تم تحقيق الهدف!",
+    "lastSevenDays": "آخر 7 أيام",
+    "stats": {
+      "km": "كم",
+      "activeMinutes": "دقيقة نشاط",
+      "calories": "سعرة"
+    },
+    "sync": {
+      "idle": "",
+      "syncing": "جارٍ المزامنة…",
+      "synced": "محدّث",
+      "offline": "محفوظ على الهاتف. ستتم المزامنة عند الاتصال."
+    },
+    "health": {
+      "unavailable": {
+        "title": "Health Connect غير متوفر",
+        "body": "ثبّت Health Connect من متجر Play لحساب خطواتك.",
+        "action": "فتح Health Connect"
+      },
+      "needsUpdate": {
+        "title": "حدّث Health Connect",
+        "body": "يحتاج تطبيق Health Connect إلى تحديث قبل قراءة الخطوات.",
+        "action": "فتح Health Connect"
+      },
+      "needsPermission": {
+        "title": "اربط خطواتك",
+        "body": "اسمح لتطبيق CGB Steps بقراءة الخطوات والمسافة والتمارين والسعرات من Health Connect.",
+        "action": "ربط Health Connect"
+      }
+    }
   },
   "admin": {
     "dashboard": {
@@ -112,5 +141,12 @@
       "duplicate_in_file": "مكرر في الملف",
       "rate_limited": "طلبات كثيرة جدًا. انتظر دقيقة ثم حاول مرة أخرى."
     }
+  },
+  "identity": {
+    "title": "من أنت؟",
+    "subtitle": "اختر اسمك للبدء. سيتوفر تسجيل الدخول لاحقًا.",
+    "search": "ابحث بالاسم أو الرقم الوظيفي",
+    "loadError": "تعذر تحميل قائمة الموظفين. تحقق من الاتصال.",
+    "switch": "تغيير الموظف"
   }
 }

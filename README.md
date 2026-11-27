@@ -54,7 +54,8 @@ dotnet run
 # Admin web: http://localhost:5173 (proxies /api to localhost:5080)
 pnpm --filter @cgb/admin-web dev
 
-# Mobile (dev build)
+# Mobile (dev build on a phone connected by USB)
+adb reverse tcp:5080 tcp:5080   # lets the phone reach the API on this laptop
 cd apps/mobile && npx expo run:android
 ```
 
@@ -62,16 +63,18 @@ cd apps/mobile && npx expo run:android
 
 Open http://localhost:5080/scalar while the backend runs in Development to try every endpoint.
 
-| Method | Path                                | What it does                                                  |
-| ------ | ----------------------------------- | ------------------------------------------------------------- |
-| GET    | `/api/v1/departments`               | List departments with employee counts                         |
-| POST   | `/api/v1/departments`               | Add a department (`{ "name": "Finance" }`)                    |
-| DELETE | `/api/v1/departments/{id}`          | Delete a department that has no employees                     |
-| GET    | `/api/v1/employees`                 | List employees (`search`, `departmentId`, `page`, `pageSize`) |
-| POST   | `/api/v1/employees`                 | Add an employee                                               |
-| PATCH  | `/api/v1/employees/{id}/department` | Move an employee to another department                        |
-| DELETE | `/api/v1/employees/{id}`            | Delete an employee                                            |
-| POST   | `/api/v1/employees/import`          | Import a CSV roster (form field `file`)                       |
+| Method | Path                                | What it does                                                   |
+| ------ | ----------------------------------- | -------------------------------------------------------------- |
+| GET    | `/api/v1/departments`               | List departments with employee counts                          |
+| POST   | `/api/v1/departments`               | Add a department (`{ "name": "Finance" }`)                     |
+| DELETE | `/api/v1/departments/{id}`          | Delete a department that has no employees                      |
+| GET    | `/api/v1/employees`                 | List employees (`search`, `departmentId`, `page`, `pageSize`)  |
+| POST   | `/api/v1/employees`                 | Add an employee                                                |
+| PATCH  | `/api/v1/employees/{id}/department` | Move an employee to another department                         |
+| DELETE | `/api/v1/employees/{id}`            | Delete an employee                                             |
+| POST   | `/api/v1/employees/import`          | Import a CSV roster (form field `file`)                        |
+| GET    | `/api/v1/employees/{id}/activity`   | Daily steps, distance, active minutes, calories (last 30 days) |
+| PUT    | `/api/v1/employees/{id}/activity`   | Save daily totals from the app (re-sending a day replaces it)  |
 
 The roster CSV needs this header (max 2 MB, 10,000 rows). New employees are added, existing ones are skipped, and missing departments are created:
 

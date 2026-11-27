@@ -22,6 +22,60 @@ namespace CgbSteps.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("CgbSteps.Api.Models.Entities.DailyActivity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<int>("ActiveMinutes")
+                        .HasColumnType("integer")
+                        .HasColumnName("active_minutes");
+
+                    b.Property<double>("CaloriesKcal")
+                        .HasColumnType("double precision")
+                        .HasColumnName("calories_kcal");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date")
+                        .HasColumnName("date");
+
+                    b.Property<double>("DistanceMeters")
+                        .HasColumnType("double precision")
+                        .HasColumnName("distance_meters");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("employee_id");
+
+                    b.Property<bool>("IsFlagged")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_flagged");
+
+                    b.Property<string>("Source")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("source");
+
+                    b.Property<int>("Steps")
+                        .HasColumnType("integer")
+                        .HasColumnName("steps");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("pk_daily_activities");
+
+                    b.HasIndex("EmployeeId", "Date")
+                        .IsUnique()
+                        .HasDatabaseName("ix_daily_activities_employee_id_date");
+
+                    b.ToTable("daily_activities", (string)null);
+                });
+
             modelBuilder.Entity("CgbSteps.Api.Models.Entities.Department", b =>
                 {
                     b.Property<Guid>("Id")
@@ -97,6 +151,16 @@ namespace CgbSteps.Api.Migrations
                         .HasDatabaseName("ix_employees_work_email");
 
                     b.ToTable("employees", (string)null);
+                });
+
+            modelBuilder.Entity("CgbSteps.Api.Models.Entities.DailyActivity", b =>
+                {
+                    b.HasOne("CgbSteps.Api.Models.Entities.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_daily_activities_employees_employee_id");
                 });
 
             modelBuilder.Entity("CgbSteps.Api.Models.Entities.Employee", b =>

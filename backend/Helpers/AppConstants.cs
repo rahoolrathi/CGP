@@ -38,5 +38,7 @@ public static class AppConstants
         public const string InvalidWorkEmail = "invalid_work_email";
         public const string InvalidDepartment = "invalid_department";
         public const string DuplicateInFile = "duplicate_in_file";
+
+        public const string ActivityDateOutOfRange = "activity_date_out_of_range";
     }
 }

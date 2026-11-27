@@ -1,10 +1,15 @@
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { useCurrentEmployee } from '../../features/identity/currentEmployee';
 import { useTheme } from '../../shared/theme/ThemeProvider';
 
 export default function TabsLayout() {
   const { t } = useTranslation();
   const { colors } = useTheme();
+  const employee = useCurrentEmployee();
+
+  // TEMPORARY until login: ask who is using the app first.
+  if (!employee) return <Redirect href="/pick-employee" />;
 
   return (
     <Tabs

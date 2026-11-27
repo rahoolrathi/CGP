@@ -40,6 +40,7 @@ internal static class ServiceCollectionExtensions
         services.AddScoped<IDepartmentService, DepartmentService>();
         services.AddScoped<IEmployeeService, EmployeeService>();
         services.AddScoped<IEmployeeImportService, EmployeeImportService>();
+        services.AddScoped<IActivityService, ActivityService>();
         return services;
     }
 
@@ -47,6 +48,7 @@ internal static class ServiceCollectionExtensions
     {
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        services.AddScoped<IActivityRepository, ActivityRepository>();
         return services;
     }
 
