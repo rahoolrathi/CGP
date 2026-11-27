@@ -1,0 +1,51 @@
+{
+  "app": {
+    "name": "CGB Steps"
+  },
+  "common": {
+    "loading": "Loading…",
+    "retry": "Try again",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "settings": {
+    "title": "Settings",
+    "languages": {
+      "en": "English",
+      "ar": "العربية"
+    },
+    "themes": {
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    }
+  },
+  "tabs": {
+    "home": "Home",
+    "profile": "Profile"
+  },
+  "home": {
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "stepsToday": "{{count}} steps today",
+    "goal": "Goal {{goal}}",
+    "comingSoon": "Step tracking arrives in the next update."
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Manage employees, departments and challenges."
+    },
+    "apiStatus": {
+      "label": "API status",
+      "healthy": "Healthy",
+      "unavailable": "Unavailable"
+    }
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again."
+  }
+}

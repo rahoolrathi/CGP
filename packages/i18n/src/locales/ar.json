@@ -1,0 +1,51 @@
+{
+  "app": {
+    "name": "خطوات CGB"
+  },
+  "common": {
+    "loading": "جارٍ التحميل…",
+    "retry": "حاول مرة أخرى",
+    "language": "اللغة",
+    "theme": "المظهر"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "languages": {
+      "en": "English",
+      "ar": "العربية"
+    },
+    "themes": {
+      "system": "حسب النظام",
+      "light": "فاتح",
+      "dark": "داكن"
+    }
+  },
+  "tabs": {
+    "home": "الرئيسية",
+    "profile": "الملف الشخصي"
+  },
+  "home": {
+    "greeting": {
+      "morning": "صباح الخير",
+      "afternoon": "مساء الخير",
+      "evening": "مساء الخير"
+    },
+    "stepsToday": "{{count}} خطوة اليوم",
+    "goal": "الهدف {{goal}}",
+    "comingSoon": "سيتوفر تتبع الخطوات في التحديث القادم."
+  },
+  "admin": {
+    "dashboard": {
+      "title": "لوحة التحكم",
+      "subtitle": "إدارة الموظفين والإدارات والتحديات."
+    },
+    "apiStatus": {
+      "label": "حالة الخادم",
+      "healthy": "يعمل",
+      "unavailable": "غير متاح"
+    }
+  },
+  "errors": {
+    "generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  }
+}
