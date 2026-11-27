@@ -18,16 +18,17 @@ apps/
 packages/
   i18n/             English and Arabic strings
   ui-tokens/        Brand colours, spacing and typography
-backend/
-  src/CgbSteps.Api/
-    Controllers/    HTTP endpoints (thin)
-    Services/       Business logic
-    Interfaces/     Service contracts
-    Data/           EF Core DbContext and migration runner
-    Models/         DTOs (and entities, once we add them)
-    Middleware/     Error handling and security headers
-    Extensions/     Startup wiring (services and pipeline)
-    Helpers/        Small shared helpers and constants
+backend/          ASP.NET Core API (run it from this folder)
+  Controllers/    HTTP endpoints (thin)
+  Services/       Business logic
+    Interfaces/   Service contracts
+  Repositories/   Data access (added with the first tables)
+    Interfaces/   Repository contracts
+  Data/           EF Core DbContext and migration runner
+  Models/         DTOs (and entities, once we add them)
+  Middleware/     Error handling and security headers
+  Extensions/     Startup wiring (services and pipeline)
+  Helpers/        Small shared helpers and constants
 ```
 
 ## Prerequisites
@@ -38,14 +39,16 @@ backend/
 
 ## Run locally
 
+First copy `backend/.env.example` to `backend/.env` and paste your Neon URLs into `DATABASE_URL` and `MIGRATIONS_DATABASE_URL`. The backend reads this file on startup. `.env` is git-ignored, so never commit it.
+
 ```sh
 pnpm install
 
 # Backend: http://localhost:5080, API docs at /scalar
 cd backend
 dotnet tool restore
-dotnet run --project src/CgbSteps.Api -- migrate
-dotnet run --project src/CgbSteps.Api
+dotnet run -- migrate
+dotnet run
 
 # Admin web: http://localhost:5173 (proxies /api to localhost:5080)
 pnpm --filter @cgb/admin-web dev
@@ -58,7 +61,7 @@ cd apps/mobile && npx expo run:android
 
 ```sh
 pnpm lint && pnpm typecheck && pnpm build
-cd backend && dotnet build CgbSteps.slnx
+cd backend && dotnet build
 ```
 
 ## Deploy
@@ -86,8 +89,8 @@ The app role cannot change the schema; only the migrator role can.
 
 Hosting is not decided yet. On the host:
 
-1. Set the variables from `backend/.env.example` (pooled Neon host for `ConnectionStrings__App`, direct host for `ConnectionStrings__Migrations`).
-2. Run `dotnet run --project src/CgbSteps.Api -- migrate` (or `dotnet CgbSteps.Api.dll migrate` from a published build) before each release.
+1. Set `DATABASE_URL` (Neon pooled URL) and `MIGRATIONS_DATABASE_URL` (Neon direct URL) as environment variables, the same keys as `backend/.env.example`.
+2. Run `dotnet run -- migrate` in `backend` (or `dotnet CgbSteps.Api.dll migrate` from a published build) before each release.
 3. Use `/health/ready` as the health check.
 
 ### Admin web (Vercel)
