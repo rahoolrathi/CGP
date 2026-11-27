@@ -1,0 +1,44 @@
+{
+  "name": "@cgb/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "build:apk": "eas build --platform android --profile preview"
+  },
+  "dependencies": {
+    "@cgb/i18n": "workspace:*",
+    "@cgb/ui-tokens": "workspace:*",
+    "expo": "~58.1.0",
+    "expo-build-properties": "~58.0.12",
+    "expo-constants": "~58.0.16",
+    "expo-linking": "~58.0.17",
+    "expo-localization": "~58.0.5",
+    "expo-router": "~58.0.33",
+    "expo-status-bar": "~58.0.5",
+    "expo-system-ui": "~58.0.7",
+    "i18next": "^27.2.9",
+    "react": "19.3.0",
+    "react-i18next": "^18.0.3",
+    "react-native": "0.88.1",
+    "react-native-health-connect": "^4.1.3",
+    "react-native-mmkv": "^4.3.2",
+    "react-native-nitro-modules": "^0.37.2",
+    "react-native-safe-area-context": "~5.11.1",
+    "react-native-screens": "~4.30.1"
+  },
+  "devDependencies": {
+    "@testing-library/react-native": "^14.1.0",
+    "@types/jest": "^30.0.0",
+    "@types/react": "~19.3.0",
+    "jest": "^30.5.2",
+    "jest-expo": "~58.0.16",
+    "test-renderer": "^1.3.0",
+    "typescript": "~6.0.3"
+  }
+}
