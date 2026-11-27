@@ -14,7 +14,6 @@ try
     builder.AddLogging();
     builder.Services
         .AddDatabase(builder.Configuration)
-        .AddRepositories()
         .AddAppServices()
         .AddApiInfrastructure(builder.Configuration);
 

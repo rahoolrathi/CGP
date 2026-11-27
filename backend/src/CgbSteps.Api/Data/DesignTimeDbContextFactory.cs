@@ -1,4 +1,4 @@
-using CgbSteps.Api.Utils;
+using CgbSteps.Api.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 

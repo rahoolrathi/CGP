@@ -2,17 +2,32 @@
 
 Internal wellness app for CGB employees: step tracking, goals, badges, kudos and department challenges. Coins are for recognition and personalisation only.
 
-## Structure
+## Folder structure
 
 ```
 apps/
-  mobile/        Expo (React Native) Android app
-  admin-web/     React + Vite admin dashboard
+  admin-web/        React + Vite admin dashboard
+    src/app/        App shell and providers
+    src/features/   One folder per screen (dashboard, ...)
+    src/lib/        API client, i18n, preferences
+    src/theme/      Light and dark theme
+  mobile/           Expo (React Native) Android app
+    src/app/        Screens and navigation (expo-router)
+    src/features/   One folder per feature (home, settings, ...)
+    src/shared/     Reusable UI, theme, storage, i18n
 packages/
-  ui-tokens/     Brand colours, spacing and typography
-  i18n/          English and Arabic strings
-backend/         ASP.NET Core API (controllers, services, repositories)
-docs/            ADRs, threat model, runbooks
+  i18n/             English and Arabic strings
+  ui-tokens/        Brand colours, spacing and typography
+backend/
+  src/CgbSteps.Api/
+    Controllers/    HTTP endpoints (thin)
+    Services/       Business logic
+    Interfaces/     Service contracts
+    Data/           EF Core DbContext and migration runner
+    Models/         DTOs (and entities, once we add them)
+    Middleware/     Error handling and security headers
+    Extensions/     Startup wiring (services and pipeline)
+    Helpers/        Small shared helpers and constants
 ```
 
 ## Prerequisites
@@ -21,39 +36,69 @@ docs/            ADRs, threat model, runbooks
 - .NET 10 SDK
 - PostgreSQL 16 locally, or a Neon `dev` branch
 
-## Getting started
+## Run locally
 
 ```sh
 pnpm install
 
-# Backend (create the cgb_migrator and cgb_app roles first, see docs/runbooks/deploy.md)
+# Backend: http://localhost:5080, API docs at /scalar
 cd backend
 dotnet tool restore
 dotnet run --project src/CgbSteps.Api -- migrate
-dotnet run --project src/CgbSteps.Api      # http://localhost:5080, API docs at /scalar
+dotnet run --project src/CgbSteps.Api
 
-# Admin web (proxies /api to localhost:5080)
-pnpm --filter @cgb/admin-web dev           # http://localhost:5173
+# Admin web: http://localhost:5173 (proxies /api to localhost:5080)
+pnpm --filter @cgb/admin-web dev
 
-# Mobile (needs a dev build because of Health Connect)
+# Mobile (dev build)
 cd apps/mobile && npx expo run:android
 ```
 
-## Quality checks
+## Checks
 
 ```sh
-pnpm lint && pnpm typecheck && pnpm test && pnpm build
-cd backend && dotnet build CgbSteps.slnx && dotnet test --solution CgbSteps.slnx
+pnpm lint && pnpm typecheck && pnpm build
+cd backend && dotnet build CgbSteps.slnx
 ```
 
-## Conventions
+## Deploy
 
-- Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:` …).
-- Every PR fills in the "Security considerations" section.
-- Every user-facing string goes through `packages/i18n` in both English and Arabic.
-- New dependencies are justified in the PR description.
-- Significant decisions get an ADR in `docs/adr/`.
+### Database (Neon)
 
-## Deployment
+Create a project with database `cgb_steps`, then run once as the owner role:
 
-See [docs/runbooks/deploy.md](docs/runbooks/deploy.md): API on Railway, admin web on Vercel, database on Neon, Android as a shared APK.
+```sql
+CREATE ROLE cgb_migrator LOGIN PASSWORD '<strong password>';
+CREATE ROLE cgb_app LOGIN PASSWORD '<different strong password>';
+GRANT ALL ON DATABASE cgb_steps TO cgb_migrator;
+ALTER SCHEMA public OWNER TO cgb_migrator;
+REVOKE CREATE ON SCHEMA public FROM PUBLIC;
+GRANT USAGE ON SCHEMA public TO cgb_app;
+ALTER DEFAULT PRIVILEGES FOR ROLE cgb_migrator IN SCHEMA public
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO cgb_app;
+ALTER DEFAULT PRIVILEGES FOR ROLE cgb_migrator IN SCHEMA public
+  GRANT USAGE, SELECT ON SEQUENCES TO cgb_app;
+```
+
+The app role cannot change the schema; only the migrator role can.
+
+### API
+
+Hosting is not decided yet. On the host:
+
+1. Set the variables from `backend/.env.example` (pooled Neon host for `ConnectionStrings__App`, direct host for `ConnectionStrings__Migrations`).
+2. Run `dotnet run --project src/CgbSteps.Api -- migrate` (or `dotnet CgbSteps.Api.dll migrate` from a published build) before each release.
+3. Use `/health/ready` as the health check.
+
+### Admin web (Vercel)
+
+Set the root directory to `apps/admin-web`, point the rewrite in `apps/admin-web/vercel.json` at the API, and add the Vercel domain to `Cors__AllowedOrigins__0` on the API.
+
+### Android APK
+
+```sh
+cd apps/mobile
+npx eas-cli@latest build --platform android --profile preview
+```
+
+Back up the release keystore with `eas credentials`. Losing it means users must uninstall to update.

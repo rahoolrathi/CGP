@@ -1,5 +1,5 @@
+using CgbSteps.Api.Helpers;
 using CgbSteps.Api.Middleware;
-using CgbSteps.Api.Utils;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Scalar.AspNetCore;
 using Serilog;

@@ -1,7 +1,6 @@
 using CgbSteps.Api.Helpers;
 using CgbSteps.Api.Interfaces;
 using CgbSteps.Api.Models.Dtos;
-using CgbSteps.Api.Utils;
 
 namespace CgbSteps.Api.Services;
 

@@ -1,4 +1,4 @@
-namespace CgbSteps.Api.Utils;
+namespace CgbSteps.Api.Helpers;
 
 public static class AppConstants
 {

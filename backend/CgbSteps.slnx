@@ -2,7 +2,4 @@
   <Folder Name="/src/">
     <Project Path="src/CgbSteps.Api/CgbSteps.Api.csproj" />
   </Folder>
-  <Folder Name="/tests/">
-    <Project Path="tests/CgbSteps.Tests/CgbSteps.Tests.csproj" />
-  </Folder>
 </Solution>

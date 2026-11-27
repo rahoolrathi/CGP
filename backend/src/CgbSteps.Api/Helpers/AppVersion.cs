@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace CgbSteps.Api.Utils;
+namespace CgbSteps.Api.Helpers;
 
 public static class AppVersion
 {

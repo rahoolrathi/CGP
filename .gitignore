@@ -1,7 +1,6 @@
 node_modules/
 dist/
 coverage/
-.turbo/
 .expo/
 apps/mobile/android/
 apps/mobile/ios/
@@ -13,7 +12,6 @@ credentials.json
 
 bin/
 obj/
-TestResults/
 *.user
 
 .env

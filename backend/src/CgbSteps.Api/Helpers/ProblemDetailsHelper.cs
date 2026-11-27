@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using CgbSteps.Api.Utils;
 
 namespace CgbSteps.Api.Helpers;
 

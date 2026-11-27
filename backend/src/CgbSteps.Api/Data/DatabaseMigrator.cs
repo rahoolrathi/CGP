@@ -1,4 +1,5 @@
-using CgbSteps.Api.Utils;
+using CgbSteps.Api.Extensions;
+using CgbSteps.Api.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace CgbSteps.Api.Data;

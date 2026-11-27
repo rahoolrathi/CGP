@@ -3,9 +3,7 @@ using CgbSteps.Api.Data;
 using CgbSteps.Api.Helpers;
 using CgbSteps.Api.Interfaces;
 using CgbSteps.Api.Middleware;
-using CgbSteps.Api.Repositories;
 using CgbSteps.Api.Services;
-using CgbSteps.Api.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.HttpOverrides;
 using Serilog;
@@ -32,17 +30,10 @@ internal static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddRepositories(this IServiceCollection services)
-    {
-        services.AddScoped<IAuditLogRepository, AuditLogRepository>();
-        return services;
-    }
-
     public static IServiceCollection AddAppServices(this IServiceCollection services)
     {
         services.AddSingleton(TimeProvider.System);
         services.AddScoped<ISystemService, SystemService>();
-        services.AddScoped<IAuditLogService, AuditLogService>();
         return services;
     }
 
