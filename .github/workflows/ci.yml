@@ -43,11 +43,11 @@ jobs:
           global-json-file: backend/global.json
       - run: dotnet restore CgbSteps.slnx
       - run: dotnet build CgbSteps.slnx --no-restore -c Release
-      - run: dotnet test --solution CgbSteps.slnx --no-build -c Release
+      - run: dotnet test --solution CgbSteps.slnx --no-build --configuration Release
       - name: Check migrations match the model
         run: |
           dotnet tool restore
-          dotnet ef migrations has-pending-model-changes --project src/CgbSteps.Infrastructure --no-build -c Release
+          dotnet ef migrations has-pending-model-changes --project src/CgbSteps.Infrastructure --no-build --configuration Release
 
   secrets:
     name: Secret scan
